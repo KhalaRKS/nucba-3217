@@ -11,6 +11,7 @@ let nombreCompleto = nombre + " " + apellido;
 let sinValor;
 //          Ender Romero
 alert("Hola estoy interrumpiendo el programa, no deberias ver las consolas");
+
 console.log("Ender ahora tiene esta cantidad de dinero: ", dinero + 150);
 console.log("Suma de String con Number", 10 + "hola");
 console.log(sinValor);
@@ -35,7 +36,7 @@ let numero5 = 21;
 let valorIngresadoPorTeclado = prompt("Ingrese su nombre");
 
 console.log(valorIngresadoPorTeclado);
-console.log(valorIngresadoPorTeclado);
+console.log(valorIngresadoPorTeclado); 
 console.log(valorIngresadoPorTeclado);
 
 // Hola esto es un comentarioi de una sola linea
