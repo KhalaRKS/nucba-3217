@@ -10,7 +10,7 @@ let taskList = JSON.parse(localStorage.getItem("tasks")) || [];
 
 // Funcion que guarda tareas en el localStorage
 const saveLocalStorage = () => {
-  localStorage.setItem("tasks", JSON.stringify(taskList));
+  localStorage.setItem("tasks", JSON.stringify(mensajes));
 };
 
 // Funcion que crea tareas, retorna un HTML con la tarea que se especifico.
@@ -21,12 +21,14 @@ const createTask = (task) =>
 // Funcion para renderizar (IMPRIMIR) la lista de tareas en el html
 
 const renderTaskList = () => {
-  tasksContainer.innerHTML = taskList.map((task) => createTask(task)).join("");
+  tasksContainer.innerHTML = mensajes
+    .map((task) => createMessage(task))
+    .join("");
 };
 
 // Funcion que se encargara de ocultar el boton de borrar todas las tareas en caso de que no haya tareas.
 const toggleDeleteAllButton = () => {
-  if (!taskList.length) {
+  if (!mensajes.length) {
     deleteAllBtn.classList.add("hidden");
     return;
   }
@@ -46,7 +48,7 @@ const isValidTask = (taskName) => {
     alert("Por favor, ingrese una tarea");
     isValid = false;
   } else if (
-    taskList.some((task) => task.name.toLowerCase() === taskName.toLowerCase())
+    mensajes.some((task) => task.name.toLowerCase() === taskName.toLowerCase())
   ) {
     alert("Ya existe una tarea con ese nombre.");
     isValid = false;
@@ -59,9 +61,9 @@ const addTask = (e) => {
   e.preventDefault();
   const taskName = validInputValue();
   if (isValidTask(taskName)) {
-    taskList = [...taskList, { name: taskName, id: Date.now() }];
+    mensajes = [...mensajes, { name: taskName, id: Date.now() }];
     addForm.reset();
-    renderTaskList();
+    renderMessageList();
     saveLocalStorage();
     toggleDeleteAllButton();
   }
@@ -72,8 +74,8 @@ const removeTask = (e) => {
   if (!e.target.classList.contains("delete-btn")) return;
 
   const filterId = Number(e.target.dataset.id);
-  taskList = taskList.filter((task) => task.id !== filterId);
-  renderTaskList();
+  mensajes = mensajes.filter((task) => task.id !== filterId);
+  renderMessageList();
   saveLocalStorage();
   toggleDeleteAllButton();
 };
@@ -81,8 +83,8 @@ const removeTask = (e) => {
 // Funcion de borrar todas las tareas del array de tareas
 
 const removeAll = () => {
-  taskList = [];
-  renderTaskList();
+  mensajes = [];
+  renderMessageList();
   saveLocalStorage();
   toggleDeleteAllButton();
 };
@@ -90,7 +92,7 @@ const removeAll = () => {
 // Primer funcion y unica que se ejecutara en nuestro programa.
 // Esta msima fucnion se encargara de ejecutar los eventos o demas funciones.
 const init = () => {
-  document.addEventListener("DOMContentLoaded", renderTaskList);
+  document.addEventListener("DOMContentLoaded", renderMessageList);
   addForm.addEventListener("submit", addTask);
   tasksContainer.addEventListener("click", removeTask);
   deleteAllBtn.addEventListener("click", removeAll);
